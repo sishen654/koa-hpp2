@@ -1,16 +1,23 @@
 {
-  "name": "koa-hpp",
+  "name": "koa-hpp2",
   "version": "1.0.0",
   "author": "sishen",
   "license": "MIT",
-  "description": "CLI to some JavaScript string utilities",
-  "keywords": [],
+  "description": "Koa middleware to protect against HTTP Parameter Pollution attacks",
+  "keywords": [
+    "koa",
+    "attack",
+    "security",
+    "hpp",
+    "http",
+    "parameter"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "repository": "",
-  "homepage": "",
-  "bugs": "",
+  "repository": "https://github.com/sishen654/koa-hpp2",
+  "homepage": "https://github.com/sishen654/koa-hpp2",
+  "bugs": "https://github.com/sishen654/koa-hpp2/issues",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -28,16 +35,17 @@
     "coverage": "vitest run --coverage",
     "p": "standard-version",
     "c": " git push --tags",
-    "push": "git checkout main & git push gitee-dotenv main & git push github-dotenv main"
+    "push": "git checkout main & git push gitee-koa-hpp2 main & git push github-koa-hpp2 main"
   },
   "files": [
-    "index.js",
     "dist/"
   ],
   "devDependencies": {
+    "@koa/router": "12.0.0",
     "@rollup/plugin-commonjs": "23.0.4",
     "@rollup/plugin-node-resolve": "15.0.1",
     "@types/fs-extra": "9.0.13",
+    "@types/koa__router": "12.0.0",
     "@types/node": "18.11.4",
     "cross-env": "7.0.3",
     "esbuild": "0.16.2",
@@ -46,6 +54,7 @@
     "gulp-typescript": "6.0.0-alpha.1",
     "gulp-uglify": "3.0.2",
     "happy-dom": "7.7.0",
+    "koa": "2.14.1",
     "merge2": "1.4.1",
     "nodemon": "2.0.20",
     "rimraf": "3.0.2",
@@ -56,7 +65,5 @@
     "typescript": "4.8.4",
     "vite": "^3.2.4",
     "vitest": "^0.24.3"
-  },
-  "dependencies": {
   }
 }
