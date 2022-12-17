@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "declaration": false,
+    "sourceMap": false,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": ["vitest/globals"]
+  },
+  "include": ["src", "__test__"],
+  "exclude": [""]
+}
