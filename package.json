@@ -27,6 +27,7 @@
   },
   "types": "dist/index.d.ts",
   "scripts": {
+    "serve": "nodemon ./__test__/mock-server.js",
     "watch": "cross-env NODE_ENV=development gulp",
     "w": "yarn build --watch",
     "build": "rimraf dist & cross-env NODE_ENV=production rollup -c",
@@ -41,12 +42,15 @@
     "dist/"
   ],
   "devDependencies": {
+    "@koa/multer": "3.0.2",
     "@koa/router": "12.0.0",
     "@rollup/plugin-commonjs": "23.0.4",
     "@rollup/plugin-node-resolve": "15.0.1",
     "@types/fs-extra": "9.0.13",
+    "@types/koa__multer": "2.0.4",
     "@types/koa__router": "12.0.0",
     "@types/node": "18.11.4",
+    "@types/type-is": "1.6.3",
     "cross-env": "7.0.3",
     "esbuild": "0.16.2",
     "gulp": "4.0.2",
@@ -55,7 +59,9 @@
     "gulp-uglify": "3.0.2",
     "happy-dom": "7.7.0",
     "koa": "2.14.1",
+    "koa-bodyparser": "4.3.0",
     "merge2": "1.4.1",
+    "multer": "1.4.5-lts.1",
     "nodemon": "2.0.20",
     "rimraf": "3.0.2",
     "rollup": "3.7.0",
