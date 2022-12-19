@@ -35,7 +35,7 @@
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "p": "standard-version",
-    "c": " git push --tags",
+    "c": "git checkout main & git push gitee-koa-hpp2 main --tags & git push github-koa-hpp2 main --tags",
     "push": "git checkout main & git push gitee-koa-hpp2 main & git push github-koa-hpp2 main"
   },
   "files": [
