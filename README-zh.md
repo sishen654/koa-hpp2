@@ -1,5 +1,7 @@
 # koa-hpp2
 
+[English](./README.md) | 简体中文
+
 ## ✨ 介绍
 
 这是一个用于**防护 HTTP 参数污染攻击**的 Koa 中间件
