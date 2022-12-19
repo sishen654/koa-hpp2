@@ -1,6 +1,6 @@
 # koa-hpp2
 
-## ✨介绍
+## ✨ 介绍
 
 这是一个用于**防护 HTTP 参数污染攻击**的 Koa 中间件
 
@@ -14,7 +14,7 @@
 
 
 
-## 📦下载
+## 📦 下载
 
 ```bash
 npm i koa-hpp2
@@ -24,7 +24,7 @@ pnpm add koa-hpp2
 
 
 
-## 🌍TS支持
+## 🌍 TS支持
 
 ```ts
 import * as koa from 'koa';
@@ -45,7 +45,7 @@ export { HppOption, export_default as default };
 
 
 
-## 🔨使用
+## 🔨 使用
 
 ### query 过滤
 
