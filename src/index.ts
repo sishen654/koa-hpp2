@@ -68,9 +68,9 @@ export default function (option: HppOption = {}) {
     }
 
     // 4 返回中间件
-    const hpp: Middleware = function (ctx: ParameterizedContext, next: Next) {
+    const hpp: Middleware = async function (ctx: ParameterizedContext, next: Next) {
         // 1 通过全部
-        if (whitelist === "*" && !queryWhitelist[0] && !bodyWhitelist[0]) return next();
+        if (whitelist === "*" && !queryWhitelist[0] && !bodyWhitelist[0]) return await next();
         // 2 转化为数组
         whitelist = Array.isArray(whitelist) ? whitelist : []
         // 3 过滤
@@ -87,7 +87,7 @@ export default function (option: HppOption = {}) {
                 }
             }
         }
-        next();
+        await next();
     }
     return hpp
 }
