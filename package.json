@@ -1,6 +1,6 @@
 {
   "name": "koa-hpp2",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "sishen",
   "license": "MIT",
   "description": "Koa middleware to protect against HTTP Parameter Pollution attacks",
