@@ -1,6 +1,6 @@
 # koa-hpp2
 
-English | [简体中文](./README-zh.md)
+English | [简体中文](https://github.com/sishen654/koa-hpp2/blob/main/README-zh.md)
 
 ## ✨ Introduce
 
