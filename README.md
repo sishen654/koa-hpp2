@@ -33,12 +33,12 @@ import * as koa from 'koa';
 import { Middleware } from 'koa';
 
 declare type HppOption = Partial<{
-    checkQuery: Boolean;	// 默认为 true
-    checkBody: Boolean;		// // 默认为 true
-    checkBodyOnlyForContentType: string[] | "*";	// 默认为 *，代表任何类型都通过
-    whitelist: string[] | "*";	// 默认为 *，代表全部通过
-    queryWhitelist: string[];	// 默认为 []
-    bodyWhitelist: string[];	// 默认为 []
+    checkQuery: Boolean;	// default is true
+    checkBody: Boolean;		// default is true
+    checkBodyOnlyForContentType: string[] | "*";	// default is *, which means that any request data type is passed
+    whitelist: string[] | "*";	// default is *, representing all passed
+    queryWhitelist: string[];	// default is []
+    bodyWhitelist: string[];	// default is []
 }>;
 declare function export_default(option?: HppOption): Middleware<koa.DefaultState, koa.DefaultContext, any>;
 
@@ -57,20 +57,22 @@ import hpp from "koa-hpp2"
 
 const app = new koa()
 app.use(hpp({
-    queryWhitelist: ["a"]  // 只允许 query 中名为 a 的参数通过，其余参数放置于污染对象
+    queryWhitelist: ["a"]  
+    // Only the parameter named a in the query is allowed to pass
+    // and the rest of the parameters are placed in the polluted object
 }))
 // ...
 ```
 
 ```js
-// 案例1：假设发送如下请求
+// Case 1: Suppose the following request is sent
 let data = await axios.get<any, Response>("http://127.0.0.1:3333/", { params: { a: 1, b: 2 } })
 // ctx.query = { a: "1" }
 // ctx.state.queryPolluted = { b: "2" }
 ```
 
 ```js
-// 案例2：携带多个相同参数
+// Case 2: carry multiple same parameters
 let data = await axios.get<any, Response>("http://127.0.0.1:3333/?a=1&a=222&b=2")
 // ctx.query = { a: "222" }
 // ctx.state.queryPolluted = { a: ["1", "222"], b: "2" }
@@ -78,7 +80,7 @@ let data = await axios.get<any, Response>("http://127.0.0.1:3333/?a=1&a=222&b=2"
 
 ### body filter
 
->   **注意**：在解析 body 之前必须添加 koa-bodyparser 中间件
+>   **Note**: koa-bodyparser middleware must be added before parsing body
 
 ```js
 import koa from "koa"
@@ -86,9 +88,11 @@ import bodyParser from "koa-bodyparser"
 import hpp from "koa-hpp2"
 
 const app = new koa()
-app.use(bodyParser())	// 必须添加 body 解析，才能对 body 进行过滤
+app.use(bodyParser())	// Body parsing must be added to filter the body
 app.use(hpp({
-    bodyWhitelist: ["a"]  // 只允许 body 中名为 a 的参数通过，其余参数放置于污染对象
+    bodyWhitelist: ["a"]  
+    // Only the parameter named a in the body is allowed to pass
+    // and the rest of the parameters are placed in the tainted object
 }))
 // ...
 ```
@@ -107,9 +111,11 @@ import bodyParser from "koa-bodyparser"
 import hpp from "koa-hpp2"
 
 const app = new koa()
-app.use(bodyParser())	// 必须添加 body 解析，才能对 body 进行过滤
+app.use(bodyParser())
 app.use(hpp({
-    whitelist: ["a"]  // 只允许 body 和 query 中名为 a 的参数通过，其余参数放置于污染对象
+    whitelist: ["a"]  
+    // Only the parameter named a in body and query is allowed to pass
+    // and the rest of the parameters are placed in the pollution object
 }))
 // ...
 ```

@@ -34,8 +34,8 @@ import { Middleware } from 'koa';
 
 declare type HppOption = Partial<{
     checkQuery: Boolean;	// 默认为 true
-    checkBody: Boolean;		// // 默认为 true
-    checkBodyOnlyForContentType: string[] | "*";	// 默认为 *，代表任何类型都通过
+    checkBody: Boolean;		// 默认为 true
+    checkBodyOnlyForContentType: string[] | "*";	// 默认为 *，代表任何请求数据类型都通过
     whitelist: string[] | "*";	// 默认为 *，代表全部通过
     queryWhitelist: string[];	// 默认为 []
     bodyWhitelist: string[];	// 默认为 []
