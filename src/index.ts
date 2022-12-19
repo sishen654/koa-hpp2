@@ -1,14 +1,14 @@
 import type { ParameterizedContext, Next, Middleware } from "koa"
 import typeis from "type-is"
 
-export interface HppOption {
+export type HppOption = Partial<{
     checkQuery: Boolean,
     checkBody: Boolean,
     checkBodyOnlyForContentType: string[] | "*",
     whitelist: string[] | "*",
-    queryWhiteList: string[],
-    bodyWhiteList: string[]
-}
+    queryWhitelist: string[],
+    bodyWhitelist: string[]
+}>
 
 function itemIsString(arr: string[]) {
     arr.forEach((t, i) => {
@@ -18,15 +18,15 @@ function itemIsString(arr: string[]) {
     })
 }
 
-export default function (option: Partial<HppOption> = {}) {
-    let { whitelist = "*", checkQuery = true, checkBody = true, checkBodyOnlyForContentType = "*", queryWhiteList = [], bodyWhiteList = [] } = option
+export default function (option: HppOption = {}) {
+    let { whitelist = "*", checkQuery = true, checkBody = true, checkBodyOnlyForContentType = "*", queryWhitelist = [], bodyWhitelist = [] } = option
     // 1 判断存在
     if (!whitelist) throw new Error("Please pass either a string or an string array to options.whitelist")
 
     // 2 判断数组每一项
     if (Array.isArray(whitelist)) { itemIsString(whitelist) }
-    itemIsString(queryWhiteList)
-    itemIsString(bodyWhiteList)
+    itemIsString(queryWhitelist)
+    itemIsString(bodyWhitelist)
 
     // 3 定义过滤函数
     function _filter(type: "query" | "body", ctx: ParameterizedContext, _whitelist: string[]) {
@@ -56,7 +56,10 @@ export default function (option: Partial<HppOption> = {}) {
                     const value = reqData[key];
                     // 白名单没有该属性，剔除
                     if (!_whitelist.includes(key)) {
-                        reqPolluted[key] = value
+                        // 防止重复添加
+                        if (!reqPolluted[key]) {
+                            reqPolluted[key] = value
+                        }
                         delete reqData[key];
                     }
                 }
@@ -67,16 +70,16 @@ export default function (option: Partial<HppOption> = {}) {
     // 4 返回中间件
     const hpp: Middleware = function (ctx: ParameterizedContext, next: Next) {
         // 1 通过全部
-        if (whitelist === "*" && !queryWhiteList[0] && !bodyWhiteList[0]) return next();
+        if (whitelist === "*" && !queryWhitelist[0] && !bodyWhitelist[0]) return next();
         // 2 转化为数组
         whitelist = Array.isArray(whitelist) ? whitelist : []
         // 3 过滤
-        if (checkQuery && ctx.query) {
-            _filter("query", ctx, whitelist.concat(queryWhiteList))
+        if (checkQuery && Object.keys(ctx.query)[0]) {
+            _filter("query", ctx, whitelist.concat(queryWhitelist))
         }
         // @ts-ignore 需要在前面添加 koa-bodyparser 中间件
-        if (checkBody && ctx.request.body) {
-            let arr = whitelist.concat(bodyWhiteList)
+        if (checkBody && ctx.request.body && Object.keys(ctx.request.body)[0]) {
+            let arr = whitelist.concat(bodyWhitelist)
             if (checkBodyOnlyForContentType === "*") _filter("body", ctx, arr);
             else {
                 if (Array.isArray(checkBodyOnlyForContentType) && checkBodyOnlyForContentType.includes(ctx.header["content-type"] as string)) {
