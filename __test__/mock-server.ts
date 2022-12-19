@@ -1,7 +1,7 @@
 import koa from "koa"
 import bodyParser from "koa-bodyparser"
 import multer from "@koa/multer"
-import hpp from "../src/index"
+import hpp from "../dist/index"
 import type { HppOption } from "../src/index"
 
 let server: any = null
